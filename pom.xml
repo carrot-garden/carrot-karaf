@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.carrotgarden</groupId>
+		<artifactId>carrot-archon</artifactId>
+		<version>1.0.20-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.carrotgarden.karaf</groupId>
+	<artifactId>carrot-karaf</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>carrot-karaf-archon</module>
+		<module>carrot-karaf-archon-resources</module>
+		<module>carrot-karaf-archon-tester</module>
+	</modules>
+
+	<properties>
+	
+		<karaf.version>2.2.4</karaf.version>
+		
+		<karaf.platform>target/karaf-platform</karaf.platform>
+		<karaf.features>target/karaf-features</karaf.features>
+		<karaf.resources>target/karaf-resources</karaf.resources>
+		
+	</properties>
+
+	<dependencyManagement>
+	</dependencyManagement>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+
+		<pluginManagement>
+
+			<plugins>
+
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.karaf.tooling</groupId>
+										<artifactId>features-maven-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>add-features-to-repo</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+
+			</plugins>
+
+		</pluginManagement>
+
+		<plugins>
+		</plugins>
+
+	</build>
+
+</project>
