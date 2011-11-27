@@ -53,21 +53,21 @@
 			<outputDirectory>/lib/</outputDirectory>
 		</fileSet>
 
-		<fileSet>
-			<directory>src/main/distribution</directory>
-			<outputDirectory>/</outputDirectory>
-			<fileMode>0644</fileMode>
-		</fileSet>
+		<!-- <fileSet> -->
+		<!-- <directory>src/main/distribution</directory> -->
+		<!-- <outputDirectory>/</outputDirectory> -->
+		<!-- <fileMode>0644</fileMode> -->
+		<!-- </fileSet> -->
+
+		<!-- <fileSet> -->
+		<!-- <directory>target/classes/etc</directory> -->
+		<!-- <outputDirectory>/etc/</outputDirectory> -->
+		<!-- <lineEnding>unix</lineEnding> -->
+		<!-- <fileMode>0644</fileMode> -->
+		<!-- </fileSet> -->
 
 		<fileSet>
-			<directory>target/classes/etc</directory>
-			<outputDirectory>/etc/</outputDirectory>
-			<lineEnding>unix</lineEnding>
-			<fileMode>0644</fileMode>
-		</fileSet>
-
-		<fileSet>
-			<directory>target/${karaf.features}</directory>
+			<directory>${karaf.features}</directory>
 			<outputDirectory>/system</outputDirectory>
 		</fileSet>
 
@@ -75,15 +75,15 @@
 
 	<files>
 
-		<file>
-			<source>
-				${karaf.platform}/apache-karaf-${karaf.version}/bin/karaf
-			</source>
-			<outputDirectory>/bin/</outputDirectory>
-			<destName>app</destName>
-			<fileMode>0755</fileMode>
-			<lineEnding>unix</lineEnding>
-		</file>
+		<!-- <file> -->
+		<!-- <source> -->
+		<!-- ${karaf.platform}/apache-karaf-${karaf.version}/bin/karaf -->
+		<!-- </source> -->
+		<!-- <outputDirectory>/bin/</outputDirectory> -->
+		<!-- <destName>app</destName> -->
+		<!-- <fileMode>0755</fileMode> -->
+		<!-- <lineEnding>unix</lineEnding> -->
+		<!-- </file> -->
 
 		<!-- <file> -->
 		<!-- <source>target/classes/features.xml</source> -->
