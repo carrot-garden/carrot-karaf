@@ -1,98 +1,67 @@
 <assembly>
 
+	<!-- note: first file set takes precedence (will not be overwritten) -->
+
 	<id>assembly</id>
 
 	<formats>
-		<format>zip</format>
+		<!-- <format>zip</format> -->
+		<format>dir</format>
 	</formats>
+
+	<baseDirectory>${karaf.assembly.baseDirectory}</baseDirectory>
 
 	<fileSets>
 
-		<!-- expanded karaf distribution -->
 		<fileSet>
-			<directory>
-				${karaf.platform}/apache-karaf-${karaf.version}
-			</directory>
-			<outputDirectory>/</outputDirectory>
-			<excludes>
-				<exclude>**/demos/**</exclude>
-				<exclude>bin/**</exclude>
-				<exclude>etc/system.properties</exclude>
-				<exclude>etc/users.properties</exclude>
-				<exclude>etc/org.apache.karaf.features.cfg</exclude>
-				<exclude>etc/org.ops4j.pax.logging.cfg</exclude>
-				<exclude>LICENSE</exclude>
-				<exclude>NOTICE</exclude>
-				<exclude>README</exclude>
-				<exclude>RELEASE-NOTES</exclude>
-				<exclude>karaf-manual*.*</exclude>
-			</excludes>
+			<directory>target/classes/etc</directory>
+			<outputDirectory>/etc</outputDirectory>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
 		</fileSet>
 
-		<!-- copy bin/* separately to get the correct file mode -->
+		<!-- non feature dependency files -->
 		<fileSet>
-			<directory>
-				${karaf.platform}/apache-karaf-${karaf.version}
-			</directory>
-			<outputDirectory>/</outputDirectory>
-			<includes>
-				<include>bin/admin</include>
-				<include>bin/karaf</include>
-				<include>bin/start</include>
-				<include>bin/stop</include>
-			</includes>
-			<fileMode>0755</fileMode>
-		</fileSet>
-
-		<!-- copy user dependencies files -->
-		<fileSet>
-			<directory>target/dependencies</directory>
+			<directory>target/dependency</directory>
 			<includes>
 				<include>*.jar</include>
 			</includes>
 			<outputDirectory>/lib/</outputDirectory>
 		</fileSet>
 
-		<!-- <fileSet> -->
-		<!-- <directory>src/main/distribution</directory> -->
-		<!-- <outputDirectory>/</outputDirectory> -->
-		<!-- <fileMode>0644</fileMode> -->
-		<!-- </fileSet> -->
-
-		<!-- <fileSet> -->
-		<!-- <directory>target/classes/etc</directory> -->
-		<!-- <outputDirectory>/etc/</outputDirectory> -->
-		<!-- <lineEnding>unix</lineEnding> -->
-		<!-- <fileMode>0644</fileMode> -->
-		<!-- </fileSet> -->
-
 		<fileSet>
-			<directory>${karaf.features}</directory>
+			<directory>${karaf.unpack.features}</directory>
 			<outputDirectory>/system</outputDirectory>
 		</fileSet>
 
+		<!-- expanded karaf distribution -->
+		<fileSet>
+			<directory>${karaf.original.platform}</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+
+				<exclude>bin/**</exclude>
+
+				<exclude>**/demos/**</exclude>
+				<exclude>LICENSE</exclude>
+				<exclude>NOTICE</exclude>
+				<exclude>README</exclude>
+				<exclude>RELEASE-NOTES</exclude>
+				<exclude>karaf-manual*.*</exclude>
+
+			</excludes>
+		</fileSet>
+
+		<!-- bin/* separately to get the correct file mode -->
+		<fileSet>
+			<directory>${karaf.original.platform}</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/**</include>
+			</includes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
 	</fileSets>
-
-	<files>
-
-		<!-- <file> -->
-		<!-- <source> -->
-		<!-- ${karaf.platform}/apache-karaf-${karaf.version}/bin/karaf -->
-		<!-- </source> -->
-		<!-- <outputDirectory>/bin/</outputDirectory> -->
-		<!-- <destName>app</destName> -->
-		<!-- <fileMode>0755</fileMode> -->
-		<!-- <lineEnding>unix</lineEnding> -->
-		<!-- </file> -->
-
-		<!-- <file> -->
-		<!-- <source>target/classes/features.xml</source> -->
-		<!-- <outputDirectory>/system/my.groupid/my-features/2.2.2</outputDirectory> -->
-		<!-- <destName>my-features-2.2.2-features.xml</destName> -->
-		<!-- <fileMode>0644</fileMode> -->
-		<!-- <lineEnding>unix</lineEnding> -->
-		<!-- </file> -->
-
-	</files>
 
 </assembly>

@@ -41,10 +41,10 @@
 
 				<resources>
 					<resource>
-						<directory>src/main/karaf</directory>
+						<directory>src/main/resources</directory>
 						<filtering>true</filtering>
 						<includes>
-							<include>**/*</include>
+							<include>etc/**</include>
 						</includes>
 					</resource>
 				</resources>
@@ -54,72 +54,36 @@
 
 				<plugins>
 
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-resources-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>resources</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>resources</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-
-					<plugin>
-						<groupId>org.apache.karaf.tooling</groupId>
-						<artifactId>features-maven-plugin</artifactId>
-						<version>${karaf.version}</version><!--$NO-MVN-MAN-VER$ -->
-						<executions>
-							<execution>
-								<id>add-features-to-repo</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>add-features-to-repo</goal>
-								</goals>
-								<configuration>
-									<descriptors>
-										<!-- <descriptor>mvn:org.apache.karaf.assemblies.features/standard/${karaf.version}/xml/features</descriptor> -->
-										<!-- <descriptor>file:target/classes/features.xml</descriptor> -->
-									</descriptors>
-									<features>
-										<feature>war</feature>
-										<!-- <feature>my-feature</feature> -->
-									</features>
-									<repository>${karaf.features}</repository>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
+					<!-- <plugin> -->
+					<!-- <groupId>org.apache.maven.plugins</groupId> -->
+					<!-- <artifactId>maven-resources-plugin</artifactId> -->
+					<!-- <executions> -->
+					<!-- <execution> -->
+					<!-- <id>resources</id> -->
+					<!-- <phase>generate-resources</phase> -->
+					<!-- <goals> -->
+					<!-- <goal>resources</goal> -->
+					<!-- </goals> -->
+					<!-- </execution> -->
+					<!-- </executions> -->
+					<!-- </plugin> -->
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>copy</id>
-								<phase>XXX-generate-resources</phase>
+								<id>copy-project-dependencies</id>
+								<phase>generate-resources</phase>
 								<goals>
-									<goal>copy</goal>
+									<goal>copy-dependencies</goal>
 								</goals>
 								<configuration>
-									<!-- Define here the artifacts which should be included in the assembly -->
-									<artifactItems>
-										<!-- <artifactItem> -->
-										<!-- <groupId>my.groupId</groupId> -->
-										<!-- <artifactId>my.branding.id</artifactId> -->
-										<!-- <version>1.0</version> -->
-										<!-- <outputDirectory>target/dependencies</outputDirectory> -->
-										<!-- <destFileName>mybranding.jar</destFileName> -->
-										<!-- </artifactItem> -->
-									</artifactItems>
+									<includeScope>runtime</includeScope>
 								</configuration>
 							</execution>
 							<execution>
-								<!-- unpack standard karaf distribution -->
-								<id>unpack</id>
+								<id>unpack-karaf-platform</id>
 								<phase>generate-resources</phase>
 								<goals>
 									<goal>unpack</goal>
@@ -127,25 +91,35 @@
 								<configuration>
 									<artifactItems>
 										<artifactItem>
-											<groupId>org.apache.karaf</groupId>
-											<artifactId>apache-karaf</artifactId>
+											<groupId>${karaf.groupId}</groupId>
+											<artifactId>${karaf.artifactId}</artifactId>
 											<version>${karaf.version}</version>
 											<type>tar.gz</type>
-											<outputDirectory>${karaf.platform}</outputDirectory>
+											<outputDirectory>${karaf.unpack.platform}</outputDirectory>
 										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+							<execution>
+								<id>unpack-custom-resources</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
 										<artifactItem>
 											<groupId>${project.parent.groupId}</groupId>
 											<artifactId>carrot-karaf-archon-resources</artifactId>
 											<version>${project.parent.version}</version>
 											<type>jar</type>
-											<outputDirectory>${karaf.resources}</outputDirectory>
+											<outputDirectory>${karaf.unpack.resources}</outputDirectory>
 										</artifactItem>
 									</artifactItems>
 								</configuration>
 							</execution>
 						</executions>
 					</plugin>
-
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -159,7 +133,7 @@
 								</goals>
 								<configuration>
 									<descriptors>
-										<descriptor>${karaf.resources}/assembly.xml</descriptor>
+										<descriptor>${karaf.unpack.resources}/assembly.xml</descriptor>
 									</descriptors>
 									<appendAssemblyId>false</appendAssemblyId>
 									<tarLongFileMode>gnu</tarLongFileMode>

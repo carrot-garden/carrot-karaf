@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.carrotgarden</groupId>
 		<artifactId>carrot-archon</artifactId>
-		<version>1.0.20-SNAPSHOT</version>
+		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.carrotgarden.karaf</groupId>
@@ -21,13 +21,20 @@
 	</modules>
 
 	<properties>
-	
+
+		<karaf.groupId>org.apache.karaf</karaf.groupId>
+		<karaf.artifactId>apache-karaf</karaf.artifactId>
 		<karaf.version>2.2.4</karaf.version>
-		
-		<karaf.platform>target/karaf-platform</karaf.platform>
-		<karaf.features>target/karaf-features</karaf.features>
-		<karaf.resources>target/karaf-resources</karaf.resources>
-		
+		<!-- <karaf.version>2.99.99-SNAPSHOT</karaf.version> -->
+
+		<karaf.unpack.platform>target/karaf-unpack-platform</karaf.unpack.platform>
+		<karaf.unpack.features>target/karaf-unpack-features</karaf.unpack.features>
+		<karaf.unpack.resources>target/karaf-unpack-resources</karaf.unpack.resources>
+
+		<karaf.original.platform>${karaf.unpack.platform}/${karaf.artifactId}-${karaf.version}</karaf.original.platform>
+
+		<karaf.assembly.baseDirectory>platform</karaf.assembly.baseDirectory>
+
 	</properties>
 
 	<dependencyManagement>

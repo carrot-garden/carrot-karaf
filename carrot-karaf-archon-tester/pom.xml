@@ -2,14 +2,58 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>com.carrotgarden.karaf</groupId>
 		<artifactId>carrot-karaf-archon</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../carrot-karaf-archon</relativePath>
 	</parent>
-	
+
 	<artifactId>carrot-karaf-archon-tester</artifactId>
-	
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.scala-lang</groupId> -->
+		<!-- <artifactId>scala-library</artifactId> -->
+		<!-- <version>2.9.1</version> -->
+		<!-- </dependency> -->
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>features-maven-plugin</artifactId>
+				<version>${karaf.version}</version><!--$NO-MVN-MAN-VER$ -->
+				<executions>
+					<execution>
+						<id>add-features-to-repo</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-features-to-repo</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>file:${basedir}/target/classes/etc/features.xml</descriptor>
+							</descriptors>
+							<features>
+								<!-- <feature>war</feature> -->
+								<feature>scala-library</feature>
+							</features>
+							<repository>${karaf.unpack.features}</repository>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
 </project>

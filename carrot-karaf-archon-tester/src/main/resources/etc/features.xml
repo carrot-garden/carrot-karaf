@@ -1,0 +1,11 @@
+<features name="com.carrotgarden.karaf" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+
+	<repository>mvn:org.apache.karaf.assemblies.features/standard/${karaf.version}/xml/features</repository>
+	<repository>mvn:org.apache.karaf.assemblies.features/enterprise/${karaf.version}/xml/features</repository>
+
+	<feature name="scala-library" version="2.9.1">
+		<bundle start-level="70">wrap:mvn:org.scala-lang/scala-library/2.9.1
+		</bundle>
+	</feature>
+
+</features>
