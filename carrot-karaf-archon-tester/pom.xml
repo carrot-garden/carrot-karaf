@@ -43,8 +43,8 @@
 								<descriptor>file:${basedir}/target/classes/etc/features.xml</descriptor>
 							</descriptors>
 							<features>
-								<!-- <feature>war</feature> -->
-								<feature>scala-library</feature>
+								<feature>carrot-scala</feature>
+								<feature>carrot-osgi</feature>
 							</features>
 							<repository>${karaf.unpack.features}</repository>
 						</configuration>

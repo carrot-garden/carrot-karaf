@@ -1,11 +1,33 @@
 <features name="com.carrotgarden.karaf" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
 
 	<repository>mvn:org.apache.karaf.assemblies.features/standard/${karaf.version}/xml/features</repository>
+
 	<repository>mvn:org.apache.karaf.assemblies.features/enterprise/${karaf.version}/xml/features</repository>
 
 	<feature name="scala-library" version="2.9.1">
-		<bundle start-level="70">wrap:mvn:org.scala-lang/scala-library/2.9.1
-		</bundle>
+		<bundle>wrap:mvn:org.scala-lang/scala-library/2.9.1</bundle>
+	</feature>
+
+	<feature name="scala-logging" version="1.0.7">
+		<bundle>wrap:mvn:com.weiglewilczek.slf4s/slf4s_2.9.1/1.0.7</bundle>
+	</feature>
+
+	<feature name="carrot-scala" version="1.0.0">
+		<feature>scala-library</feature>
+		<feature>scala-logging</feature>
+	</feature>
+
+	<feature name="felix-scr" version="1.6.0">
+		<bundle>mvn:org.apache.felix/org.apache.felix.scr/1.6.0</bundle>
+	</feature>
+
+	<feature name="carrot-scr-anno" version="1.0.0">
+		<bundle>mvn:com.carrotgarden/carrot-osgi-anno-scr/1.0.0-SNAPSHOT</bundle>
+	</feature>
+
+	<feature name="carrot-osgi" version="1.0.0">
+		<feature>felix-scr</feature>
+		<feature>carrot-scr-anno</feature>
 	</feature>
 
 </features>

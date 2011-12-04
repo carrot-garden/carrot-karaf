@@ -18,6 +18,7 @@
 		<module>carrot-karaf-archon</module>
 		<module>carrot-karaf-archon-resources</module>
 		<module>carrot-karaf-archon-tester</module>
+		<module>carrot-karaf-archon-tester-module</module>
 	</modules>
 
 	<properties>

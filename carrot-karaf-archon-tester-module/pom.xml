@@ -1,0 +1,190 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>carrot-karaf</artifactId>
+		<groupId>com.carrotgarden.karaf</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<artifactId>carrot-karaf-archon-tester-module</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.weiglewilczek.slf4s</groupId>
+			<artifactId>slf4s_2.9.1</artifactId>
+			<version>1.0.7</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.carrotgarden</groupId>
+			<artifactId>carrot-osgi-anno-scr</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.karaf</groupId> -->
+		<!-- <artifactId>apache-karaf</artifactId> -->
+		<!-- <version>2.2.4</version> -->
+		<!-- <type>pom</type> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>features-maven-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>generate-features-xml</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<!-- <descriptor>mvn:org.apache.karaf.assemblies.features/standard/${karaf.version}/xml/features</descriptor> -->
+								<!-- <descriptor>mvn:org.apache.karaf.assemblies.features/enterprise/${karaf.version}/xml/features</descriptor> -->
+							</descriptors>
+							<outputFile>target/features.xml</outputFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<configuration>
+					<scalaVersion>2.9.1</scalaVersion>
+				</configuration>
+				<executions>
+					<execution>
+						<id>scala-compile</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>add-source</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>scala-test-compile</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.carrotgarden</groupId>
+				<artifactId>carrot-maven-scr-plugin</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<configuration>
+					<ignoreService>
+						<service>java.io.Serializable</service>
+						<service>scala.ScalaObject</service>
+						<service>com.weiglewilczek.slf4s.Logging</service>
+					</ignoreService>
+				</configuration>
+				<executions>
+					<execution>
+						<id>scr</id>
+						<goals>
+							<goal>scr</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-bundle</id>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+						<configuration>
+							<instructions>
+								<Include-Resource>
+									OSGI-INF=target/classes/OSGI-INF,
+									{maven-resources},
+								</Include-Resource>
+								<Service-Component>OSGI-INF/components/*.xml</Service-Component>
+							</instructions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.carrotgarden</groupId>
+										<artifactId>carrot-maven-scr-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>scr</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.karaf.tooling</groupId>
+										<artifactId>features-maven-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>generate-features-xml</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
