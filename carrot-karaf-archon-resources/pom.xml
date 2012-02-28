@@ -7,7 +7,6 @@
 		<groupId>com.carrotgarden.karaf</groupId>
 		<artifactId>carrot-karaf</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
 	</parent>
 
 	<artifactId>carrot-karaf-archon-resources</artifactId>

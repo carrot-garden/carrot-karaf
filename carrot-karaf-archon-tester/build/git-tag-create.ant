@@ -1,0 +1,22 @@
+<project default="git" basedir="./..">
+
+	<echo message="basedir : ${basedir}" />
+
+	<property name="tag" value="com.carrotgarden.m2e-1.1.3" />
+
+	<target name="git">
+		<exec executable="git">
+			<arg value="tag" />
+			<arg value="-m" />
+			<arg value="release" />
+			<arg value="-a" />
+			<arg value="${tag}" />
+		</exec>
+		<exec executable="git">
+			<arg value="push" />
+			<arg value="origin" />
+			<arg value="refs/tags/${tag}" />
+		</exec>
+	</target>
+
+</project>

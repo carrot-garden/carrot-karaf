@@ -5,14 +5,18 @@
 	<id>assembly</id>
 
 	<formats>
-		<!-- <format>zip</format> -->
-		<format>dir</format>
-	</formats>
 
-	<baseDirectory>${karaf.assembly.baseDirectory}</baseDirectory>
+		<!-- make archive -->
+		<format>tar.gz</format>
+
+		<!-- make expoded folder -->
+		<format>dir</format>
+
+	</formats>
 
 	<fileSets>
 
+		<!-- config files -->
 		<fileSet>
 			<directory>target/classes/etc</directory>
 			<outputDirectory>/etc</outputDirectory>
@@ -20,23 +24,15 @@
 			<fileMode>0644</fileMode>
 		</fileSet>
 
-		<!-- non feature dependency files -->
+		<!-- feature based dependency files -->
 		<fileSet>
-			<directory>target/dependency</directory>
-			<includes>
-				<include>*.jar</include>
-			</includes>
-			<outputDirectory>/lib/</outputDirectory>
-		</fileSet>
-
-		<fileSet>
-			<directory>${karaf.unpack.features}</directory>
+			<directory>${maker.features}</directory>
 			<outputDirectory>/system</outputDirectory>
 		</fileSet>
 
-		<!-- expanded karaf distribution -->
+		<!-- extracted karaf distribution -->
 		<fileSet>
-			<directory>${karaf.original.platform}</directory>
+			<directory>${karaf.platform}</directory>
 			<outputDirectory>/</outputDirectory>
 			<excludes>
 
@@ -54,7 +50,7 @@
 
 		<!-- bin/* separately to get the correct file mode -->
 		<fileSet>
-			<directory>${karaf.original.platform}</directory>
+			<directory>${karaf.platform}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
 				<include>bin/**</include>

@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.carrotgarden</groupId>
+		<groupId>com.carrotgarden.base</groupId>
 		<artifactId>carrot-archon</artifactId>
-		<version>1.1.0-SNAPSHOT</version>
+		<version>1.1.3</version>
 	</parent>
 
 	<groupId>com.carrotgarden.karaf</groupId>
@@ -15,26 +15,28 @@
 	<packaging>pom</packaging>
 
 	<modules>
+
 		<module>carrot-karaf-archon</module>
 		<module>carrot-karaf-archon-resources</module>
-		<module>carrot-karaf-archon-tester</module>
+
 		<module>carrot-karaf-archon-tester-module</module>
+		<module>carrot-karaf-archon-tester</module>
+
 	</modules>
 
 	<properties>
 
 		<karaf.groupId>org.apache.karaf</karaf.groupId>
 		<karaf.artifactId>apache-karaf</karaf.artifactId>
-		<karaf.version>2.2.4</karaf.version>
-		<!-- <karaf.version>2.99.99-SNAPSHOT</karaf.version> -->
+		<karaf.version>2.2.5</karaf.version>
+		<!-- <karaf.version>3.0.0-SNAPSHOT</karaf.version> -->
 
-		<karaf.unpack.platform>target/karaf-unpack-platform</karaf.unpack.platform>
-		<karaf.unpack.features>target/karaf-unpack-features</karaf.unpack.features>
-		<karaf.unpack.resources>target/karaf-unpack-resources</karaf.unpack.resources>
+		<!-- unpacked original platform -->
+		<karaf.platform>target/${karaf.artifactId}-${karaf.version}</karaf.platform>
 
-		<karaf.original.platform>${karaf.unpack.platform}/${karaf.artifactId}-${karaf.version}</karaf.original.platform>
-
-		<karaf.assembly.baseDirectory>platform</karaf.assembly.baseDirectory>
+		<!-- unpacked provided dependencies -->
+		<maker.features>target/maker-features</maker.features>
+		<maker.resources>target/maker-resources</maker.resources>
 
 	</properties>
 
@@ -63,11 +65,12 @@
 										<artifactId>features-maven-plugin</artifactId>
 										<versionRange>[0,)</versionRange>
 										<goals>
+											<goal>generate-features-xml</goal>
 											<goal>add-features-to-repo</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -81,7 +84,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

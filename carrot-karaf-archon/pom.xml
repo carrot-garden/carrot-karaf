@@ -7,20 +7,12 @@
 		<groupId>com.carrotgarden.karaf</groupId>
 		<artifactId>carrot-karaf</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>..</relativePath>
 	</parent>
 
 	<artifactId>carrot-karaf-archon</artifactId>
 	<packaging>pom</packaging>
 
 	<dependencies>
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.karaf</groupId> -->
-		<!-- <artifactId>apache-karaf</artifactId> -->
-		<!-- <version>${karaf.version}</version> -->
-		<!-- <type>tar.gz</type> -->
-		<!-- </dependency> -->
 
 	</dependencies>
 
@@ -54,37 +46,13 @@
 
 				<plugins>
 
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-resources-plugin</artifactId> -->
-					<!-- <executions> -->
-					<!-- <execution> -->
-					<!-- <id>resources</id> -->
-					<!-- <phase>generate-resources</phase> -->
-					<!-- <goals> -->
-					<!-- <goal>resources</goal> -->
-					<!-- </goals> -->
-					<!-- </execution> -->
-					<!-- </executions> -->
-					<!-- </plugin> -->
-
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>copy-project-dependencies</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-								<configuration>
-									<includeScope>runtime</includeScope>
-								</configuration>
-							</execution>
-							<execution>
-								<id>unpack-karaf-platform</id>
-								<phase>generate-resources</phase>
+								<id>unpack-original-platform</id>
+								<phase>package</phase>
 								<goals>
 									<goal>unpack</goal>
 								</goals>
@@ -95,14 +63,14 @@
 											<artifactId>${karaf.artifactId}</artifactId>
 											<version>${karaf.version}</version>
 											<type>tar.gz</type>
-											<outputDirectory>${karaf.unpack.platform}</outputDirectory>
+											<outputDirectory>target</outputDirectory>
 										</artifactItem>
 									</artifactItems>
 								</configuration>
 							</execution>
 							<execution>
-								<id>unpack-custom-resources</id>
-								<phase>generate-resources</phase>
+								<id>unpack-provided-resources</id>
+								<phase>package</phase>
 								<goals>
 									<goal>unpack</goal>
 								</goals>
@@ -113,9 +81,40 @@
 											<artifactId>carrot-karaf-archon-resources</artifactId>
 											<version>${project.parent.version}</version>
 											<type>jar</type>
-											<outputDirectory>${karaf.unpack.resources}</outputDirectory>
+											<outputDirectory>${maker.resources}</outputDirectory>
 										</artifactItem>
 									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.karaf.tooling</groupId>
+						<artifactId>features-maven-plugin</artifactId>
+						<version>${karaf.version}</version>
+						<executions>
+							<execution>
+								<id>generate-features-xml</id>
+								<phase>package</phase>
+								<goals>
+									<goal>generate-features-xml</goal>
+								</goals>
+								<configuration>
+									<outputFile>target/features.xml</outputFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>add-features-to-repo</id>
+								<phase>package</phase>
+								<goals>
+									<goal>add-features-to-repo</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>file:${basedir}/target/features.xml</descriptor>
+									</descriptors>
+									<repository>${maker.features}</repository>
 								</configuration>
 							</execution>
 						</executions>
@@ -133,7 +132,7 @@
 								</goals>
 								<configuration>
 									<descriptors>
-										<descriptor>${karaf.unpack.resources}/assembly.xml</descriptor>
+										<descriptor>${maker.resources}/assembly.xml</descriptor>
 									</descriptors>
 									<appendAssemblyId>false</appendAssemblyId>
 									<tarLongFileMode>gnu</tarLongFileMode>
