@@ -5,35 +5,27 @@
 
 	<parent>
 		<groupId>com.carrotgarden.karaf</groupId>
-		<artifactId>carrot-karaf-archon</artifactId>
+		<artifactId>carrot-karaf-archon-platform</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>carrot-karaf-archon-tester</artifactId>
+	<artifactId>carrot-karaf-archon-tester-app</artifactId>
 	<packaging>pom</packaging>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.scr</artifactId>
-			<version>1.6.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.carrotgarden.karaf</groupId>
 			<artifactId>carrot-karaf-archon-tester-module</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
-
-	<build>
-
-		<plugins>
-
-		</plugins>
-
-	</build>
 
 </project>

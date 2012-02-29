@@ -1,0 +1,157 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.carrotgarden.karaf</groupId>
+		<artifactId>carrot-karaf-archon</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>carrot-karaf-archon-platform</artifactId>
+	<packaging>pom</packaging>
+
+	<profiles>
+
+		<profile>
+			<id>karaf-build</id>
+			<activation>
+				<file>
+					<missing>archon.marker</missing>
+				</file>
+			</activation>
+			<build>
+
+				<pluginManagement>
+				</pluginManagement>
+
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack-original-platform</id>
+								<phase>package</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${karaf.groupId}</groupId>
+											<artifactId>${karaf.artifactId}</artifactId>
+											<version>${karaf.version}</version>
+											<type>tar.gz</type>
+											<outputDirectory>target</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+							<execution>
+								<id>unpack-provided-resources</id>
+								<phase>package</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.parent.groupId}</groupId>
+											<artifactId>carrot-karaf-archon-resources</artifactId>
+											<version>${project.parent.version}</version>
+											<type>jar</type>
+											<outputDirectory>${archon.resources}</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-karaf-config</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>${maker.config.source}</directory>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+									<outputDirectory>${maker.config.target}</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>com.carrotgarden.maven</groupId>
+						<artifactId>carrot-maven-karaf-plugin</artifactId>
+						<version>${karaf.version}</version>
+						<executions>
+							<execution>
+								<id>generate</id>
+								<phase>package</phase>
+								<goals>
+									<goal>features-generate-descriptor</goal>
+								</goals>
+								<configuration>
+									<inputFile>${archon.features}</inputFile>
+									<outputFile>${basedir}/${result.features}</outputFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>repository</id>
+								<phase>package</phase>
+								<goals>
+									<goal>features-add-to-repository</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>file:${basedir}/${result.features}</descriptor>
+									</descriptors>
+									<repository>${result.system}</repository>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>${archon.assembly}</descriptor>
+									</descriptors>
+									<appendAssemblyId>false</appendAssemblyId>
+									<tarLongFileMode>gnu</tarLongFileMode>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>

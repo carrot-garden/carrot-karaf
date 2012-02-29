@@ -9,24 +9,20 @@
 		<!-- make archive -->
 		<format>tar.gz</format>
 
-		<!-- make expoded folder -->
-		<format>dir</format>
-
 	</formats>
 
 	<fileSets>
 
-		<!-- config files -->
+		<!-- maker config files -->
 		<fileSet>
-			<directory>target/classes/etc</directory>
+			<directory>${result.config}</directory>
 			<outputDirectory>/etc</outputDirectory>
 			<lineEnding>unix</lineEnding>
-			<fileMode>0644</fileMode>
 		</fileSet>
 
 		<!-- feature based dependency files -->
 		<fileSet>
-			<directory>${maker.features}</directory>
+			<directory>${result.system}</directory>
 			<outputDirectory>/system</outputDirectory>
 		</fileSet>
 

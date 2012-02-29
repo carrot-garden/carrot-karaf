@@ -6,7 +6,6 @@
 		<exec executable="mvn">
 			<arg value="clean" />
 			<arg value="install" />
-			<arg value="--show-version" />
 		</exec>
 	</target>
 
