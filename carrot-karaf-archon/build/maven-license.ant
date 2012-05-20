@@ -1,9 +1,18 @@
+<!--
+
+    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
 <project default="maven" basedir="./..">
 
 	<echo message="basedir : ${basedir}" />
 
 	<target name="maven">
-		
+
 		<condition property="executable" value="mvn">
 			<os family="unix" />
 		</condition>
@@ -13,10 +22,11 @@
 
 		<exec executable="${executable}">
 			
-			<arg value="release:prepare" />
-			<arg value="release:perform" />
+			<arg value="clean" />
+			<arg value="process-resources" />
 			
-			<arg value="--show-version" />
+			<arg value="--activate-profiles" />
+			<arg value="license" />
 			
 		</exec>
 	</target>

@@ -1,0 +1,22 @@
+<project default="karaf" basedir="./..">
+
+	<echo message="basedir : ${basedir}" />
+
+	<target name="karaf">
+
+		<property name="artifact" value="carrot-karaf-archon-tester-app-1.0.0-SNAPSHOT" />
+
+		<gunzip src="${basedir}/target/${artifact}.tar.gz" dest="${basedir}/target/${artifact}.tar" />
+		<untar src="${basedir}/target/${artifact}.tar" dest="${basedir}/target" />
+
+		<exec executable="bash">
+
+			<arg value="${basedir}/target/${artifact}/bin/carrot.sh" />
+
+			<arg value="server" />
+
+		</exec>
+
+	</target>
+
+</project>

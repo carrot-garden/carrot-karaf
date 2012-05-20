@@ -6,18 +6,31 @@
 
 	<formats>
 
-		<!-- make archive -->
+		<!-- <format>dir</format> -->
+
 		<format>tar.gz</format>
 
 	</formats>
 
 	<fileSets>
 
-		<!-- maker config files -->
+		<!-- custom script files -->
 		<fileSet>
-			<directory>${result.config}</directory>
+			<directory>${result.bin}</directory>
+			<outputDirectory>/bin</outputDirectory>
+			<fileMode>0700</fileMode>
+		</fileSet>
+
+		<!-- custom config files -->
+		<fileSet>
+			<directory>${result.etc}</directory>
 			<outputDirectory>/etc</outputDirectory>
-			<lineEnding>unix</lineEnding>
+		</fileSet>
+
+		<!-- custom library files -->
+		<fileSet>
+			<directory>${result.lib}</directory>
+			<outputDirectory>/lib</outputDirectory>
 		</fileSet>
 
 		<!-- feature based dependency files -->
@@ -28,7 +41,7 @@
 
 		<!-- extracted karaf distribution -->
 		<fileSet>
-			<directory>${karaf.platform}</directory>
+			<directory>${karaf.distro}</directory>
 			<outputDirectory>/</outputDirectory>
 			<excludes>
 
@@ -44,14 +57,14 @@
 			</excludes>
 		</fileSet>
 
-		<!-- bin/* separately to get the correct file mode -->
+		<!-- bin/** to set file mode -->
 		<fileSet>
-			<directory>${karaf.platform}</directory>
+			<directory>${karaf.distro}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
 				<include>bin/**</include>
 			</includes>
-			<fileMode>0755</fileMode>
+			<fileMode>0700</fileMode>
 		</fileSet>
 
 	</fileSets>
