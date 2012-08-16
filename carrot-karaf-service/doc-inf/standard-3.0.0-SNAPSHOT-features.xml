@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="standard-3.0.0-SNAPSHOT">
+    <feature description="Karaf standard feature" version="3.0.0-SNAPSHOT" name="standard">
+        <details>Standard providing core Karaf features</details>
+        <bundle start-level="30">mvn:org.apache.karaf.shell/org.apache.karaf.shell.console/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.features/org.apache.karaf.features.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.features/org.apache.karaf.features.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.instance/org.apache.karaf.instance.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.instance/org.apache.karaf.instance.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.jaas/org.apache.karaf.jaas.modules/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.jaas/org.apache.karaf.jaas.config/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.jaas/org.apache.karaf.jaas.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.diagnostic/org.apache.karaf.diagnostic.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.diagnostic/org.apache.karaf.diagnostic.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.log/org.apache.karaf.log.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.log/org.apache.karaf.log.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.service/org.apache.karaf.service.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.service/org.apache.karaf.service.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature description="Aries Annotations" version="3.0.0-SNAPSHOT" name="aries-annotation">
+        <bundle dependency="true" start-level="20">mvn:org.apache.commons/commons-jexl/2.1.1</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.ow2.asm/asm-all/4.0</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.apache.xbean/xbean-bundleutils/3.11.1</bundle>
+        <bundle dependency="true" start-level="20">mvn:org.apache.xbean/xbean-finder/3.11.1</bundle>
+        <bundle start-level="20">mvn:org.apache.aries.blueprint/org.apache.aries.blueprint.annotation.api/1.0.0</bundle>
+        <bundle start-level="20">mvn:org.apache.aries.blueprint/org.apache.aries.blueprint.annotation.impl/1.0.0</bundle>
+        <bundle start-level="20">mvn:org.apache.aries.blueprint/org.apache.aries.blueprint.jexl.evaluator/1.0.0</bundle>
+    </feature>
+    <feature description="Provide OS integration" version="3.0.0-SNAPSHOT" name="wrapper">
+        <bundle start-level="30">mvn:org.apache.karaf.wrapper/org.apache.karaf.wrapper.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.wrapper/org.apache.karaf.wrapper.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature description="Provide OSGi Bundle Repository (OBR) support" version="3.0.0-SNAPSHOT" name="obr">
+        <bundle dependency="true" start-level="30">mvn:commons-lang/commons-lang/2.6</bundle>
+        <bundle dependency="true" start-level="30">mvn:commons-collections/commons-collections/3.2.1</bundle>
+        <bundle start-level="30">mvn:org.apache.felix/org.osgi.service.obr/1.0.2</bundle>
+        <bundle start-level="30">mvn:org.apache.felix/org.apache.felix.bundlerepository/1.6.6</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.obr/org.apache.karaf.obr.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.obr/org.apache.karaf.obr.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-lifecycle/1.5.1</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-tracker/1.5.1</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.url/pax-url-obr/1.4.3-SNAPSHOT</bundle>
+        <bundle start-level="31">mvn:org.apache.karaf.features/org.apache.karaf.features.obr/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature description="Provide OSGi ConfigAdmin support" version="3.0.0-SNAPSHOT" name="config">
+        <bundle start="true" start-level="30">mvn:org.apache.karaf.config/org.apache.karaf.config.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start="true" start-level="30">mvn:org.apache.karaf.config/org.apache.karaf.config.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature description="Provide Region Support" version="3.0.0-SNAPSHOT" name="region">
+        <bundle start-level="30">mvn:org.eclipse.equinox/region/1.0.0.v20110506</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.region/org.apache.karaf.region.persist/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.region/org.apache.karaf.region.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Provide Jetty engine support" version="8.1.4.v20120524" name="jetty">
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1/2.0.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-servlet_3.0_spec/1.0</bundle>
+        <bundle dependency="true" start-level="30">mvn:javax.mail/mail/1.4.5</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-annotation_1.1_spec/1.0.1</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jaspic_1.0_spec/1.1</bundle>
+        <bundle start-level="30">mvn:org.eclipse.jetty.aggregate/jetty-all-server/8.1.4.v20120524</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Package commands and mbeans" version="3.0.0-SNAPSHOT" name="package">
+        <bundle start-level="30">mvn:org.apache.karaf.package/org.apache.karaf.package.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.package/org.apache.karaf.package.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Implementation of the OSGI HTTP Service" version="3.0.0-SNAPSHOT" name="http">
+        <details>Allows to publish servlets using pax web and jetty</details>
+        <config name="org.ops4j.pax.web">
+            org.osgi.service.http.port=8181
+            javax.servlet.context.tempdir=${karaf.data}/pax-web-jsp
+            org.ops4j.pax.web.config.file=${karaf.base}/etc/jetty.xml
+        </config>
+        <configfile finalname="/etc/jetty.xml">mvn:org.apache.karaf/apache-karaf/3.0.0-SNAPSHOT/xml/jettyconfig</configfile>
+        <feature version="[7.0,9.0)">jetty</feature>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-api/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-spi/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-runtime/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-jetty/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.http/org.apache.karaf.http.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.http/org.apache.karaf.http.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Provide HTTP Whiteboard pattern support" version="3.0.0-SNAPSHOT" name="http-whiteboard">
+        <feature>http</feature>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-jsp/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-extender-whiteboard/2.1.0</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Turn Karaf as a full WebContainer" version="3.0.0-SNAPSHOT" name="war">
+        <config name="org.ops4j.pax.url.war">
+            org.ops4j.pax.url.war.importPaxLoggingPackages=true
+        </config>
+        <feature>http-whiteboard</feature>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-extender-war/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.web/pax-web-deployer/2.1.0</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.url/pax-url-war/1.4.3-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.url/pax-url-commons/1.4.3-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-bnd/1.5.1</bundle>
+        <bundle start-level="30">mvn:org.ops4j.pax.swissbox/pax-swissbox-property/1.5.1</bundle>
+        <bundle start-level="30">mvn:biz.aQute/bndlib/1.50.0</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.web/org.apache.karaf.web.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.web/org.apache.karaf.web.command/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Provide KAR (KARaf archive) support" version="3.0.0-SNAPSHOT" name="kar">
+        <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.core/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.deployer/org.apache.karaf.deployer.kar/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Base support of the Karaf WebConsole" version="3.0.0-SNAPSHOT" name="webconsole-base">
+        <config name="org.apache.karaf.webconsole">
+            realm=karaf
+        </config>
+        <feature version="3.0.0-SNAPSHOT">http</feature>
+        <bundle start-level="30">mvn:org.apache.felix/org.apache.felix.metatype/1.0.4</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.branding/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.console/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Karaf WebConsole for administration and monitoring" version="3.0.0-SNAPSHOT" name="webconsole">
+        <feature version="3.0.0-SNAPSHOT">webconsole-base</feature>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.instance/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.features/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.gogo/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.webconsole/org.apache.karaf.webconsole.http/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.felix/org.apache.felix.webconsole.plugins.event/1.0.2</bundle>
+    </feature>
+    <feature description="Provide a SSHd server on Karaf" version="3.0.0-SNAPSHOT" name="ssh">
+        <config name="org.apache.karaf.shell">
+            sshPort=8101
+            sshHost=0.0.0.0
+            sshRealm=karaf
+            hostKey=${karaf.base}/etc/host.key
+        </config>
+        <bundle start="true" start-level="30">mvn:org.apache.mina/mina-core/2.0.4</bundle>
+        <bundle start="true" start-level="30">mvn:org.apache.sshd/sshd-core/0.7.0</bundle>
+        <bundle start="true" start-level="30">mvn:org.apache.karaf.shell/org.apache.karaf.shell.ssh/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature description="Provide a JMX MBeanServer and a set of MBeans in Karaf" version="3.0.0-SNAPSHOT" name="management">
+        <bundle start-level="30">mvn:org.apache.karaf.management/org.apache.karaf.management.server/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jmx/org.apache.aries.jmx.api/1.0.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jmx/org.apache.aries.jmx.core/1.0.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jmx/org.apache.aries.jmx.blueprint.api/1.0.0</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jmx/org.apache.aries.jmx.blueprint.core/1.0.1</bundle>
+        <bundle start-level="30">mvn:org.apache.aries.jmx/org.apache.aries.jmx.whiteboard/1.0.0</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Provide a scheduler service in Karaf to fire events" version="3.0.0-SNAPSHOT" name="scheduler">
+        <bundle start-level="30">mvn:org.apache.karaf.scheduler/org.apache.karaf.scheduler.core/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="OSGi Event Admin service specification for event-based communication" version="3.0.0-SNAPSHOT" name="eventadmin">
+        <bundle start-level="30">mvn:org.apache.felix/org.apache.felix.eventadmin/1.2.14</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Advanced encryption support for Karaf security" version="3.0.0-SNAPSHOT" name="jasypt-encryption">
+        <bundle dependency="true" start-level="30">mvn:commons-codec/commons-codec/1.6</bundle>
+        <bundle dependency="true" start-level="30">mvn:commons-lang/commons-lang/2.6</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jasypt/1.9.0_1</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.jaas/org.apache.karaf.jaas.jasypt/3.0.0-SNAPSHOT</bundle>
+    </feature>
+    <feature resolver="(obr)" description="Declarative Service support" version="3.0.0-SNAPSHOT" name="scr">
+        <feature>eventadmin</feature>
+        <bundle dependency="true" start-level="30">mvn:org.apache.felix/org.apache.felix.metatype/1.0.4</bundle>
+        <bundle dependency="true" start-level="30">mvn:org.apache.felix/org.apache.felix.scr/1.6.0</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.scr/org.apache.karaf.scr.command/3.0.0-SNAPSHOT</bundle>
+        <bundle start-level="30">mvn:org.apache.karaf.scr/org.apache.karaf.scr.management/3.0.0-SNAPSHOT</bundle>
+    </feature>
+</features>

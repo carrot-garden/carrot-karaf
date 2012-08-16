@@ -1,0 +1,81 @@
+<!--
+
+    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<assembly>
+
+	<!-- note: first file set takes precedence (will not be overwritten) -->
+
+	<id>assembly</id>
+
+	<formats>
+
+		<!-- <format>dir</format> -->
+
+		<format>tar.gz</format>
+
+	</formats>
+
+	<fileSets>
+
+		<!-- custom script files -->
+		<fileSet>
+			<directory>${result.bin}</directory>
+			<outputDirectory>/bin</outputDirectory>
+			<fileMode>0700</fileMode>
+		</fileSet>
+
+		<!-- custom config files -->
+		<fileSet>
+			<directory>${result.etc}</directory>
+			<outputDirectory>/etc</outputDirectory>
+		</fileSet>
+
+		<!-- custom library files -->
+		<fileSet>
+			<directory>${result.lib}</directory>
+			<outputDirectory>/lib</outputDirectory>
+		</fileSet>
+
+		<!-- feature based dependency files -->
+		<fileSet>
+			<directory>${result.system}</directory>
+			<outputDirectory>/system</outputDirectory>
+		</fileSet>
+
+		<!-- extracted karaf distribution -->
+		<fileSet>
+			<directory>${karaf.distro}</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+
+				<exclude>bin/**</exclude>
+
+				<exclude>**/demos/**</exclude>
+				<exclude>LICENSE</exclude>
+				<exclude>NOTICE</exclude>
+				<exclude>README</exclude>
+				<exclude>RELEASE-NOTES</exclude>
+				<exclude>karaf-manual*.*</exclude>
+
+			</excludes>
+		</fileSet>
+
+		<!-- bin/** to set file mode -->
+		<fileSet>
+			<directory>${karaf.distro}</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/**</include>
+			</includes>
+			<fileMode>0700</fileMode>
+		</fileSet>
+
+	</fileSets>
+
+</assembly>

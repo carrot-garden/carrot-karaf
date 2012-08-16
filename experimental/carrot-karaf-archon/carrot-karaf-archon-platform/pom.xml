@@ -1,0 +1,186 @@
+<!--
+
+    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.carrotgarden.karaf</groupId>
+		<artifactId>carrot-karaf-archon</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>carrot-karaf-archon-platform</artifactId>
+	<packaging>pom</packaging>
+
+
+	<profiles>
+
+		<profile>
+
+			<id>karaf-build</id>
+
+			<activation>
+				<file>
+					<missing>archon.marker</missing>
+				</file>
+			</activation>
+
+			<!-- <repositories> -->
+			<!-- <repository> -->
+			<!-- <id>apache-snapshots</id> -->
+			<!-- <url>https://repository.apache.org/content/groups/snapshots/</url> -->
+			<!-- </repository> -->
+			<!-- </repositories> -->
+			<pluginRepositories>
+				<pluginRepository>
+					<id>apache-snapshots</id>
+					<url>https://repository.apache.org/content/groups/snapshots/</url>
+				</pluginRepository>
+			</pluginRepositories>
+
+			<build>
+
+				<pluginManagement>
+				</pluginManagement>
+
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack-karaf-distro</id>
+								<phase>package</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${karaf.groupId}</groupId>
+											<artifactId>${karaf.artifactId}</artifactId>
+											<version>${karaf.version}</version>
+											<type>tar.gz</type>
+											<outputDirectory>target</outputDirectory>
+											<!-- internal folder naming : ${karaf.artifactId}-${karaf.version} -->
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+							<execution>
+								<id>unpack-archon-resources</id>
+								<phase>package</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.parent.groupId}</groupId>
+											<artifactId>carrot-karaf-archon-resources</artifactId>
+											<version>${project.parent.version}</version>
+											<type>jar</type>
+											<outputDirectory>${archon}</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-karaf-custom</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>${karaf.custom}</directory>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+									<outputDirectory>${result}</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<!-- <groupId>com.carrotgarden.maven</groupId> -->
+						<!-- <artifactId>carrot-maven-karaf-plugin</artifactId> -->
+						<groupId>org.apache.karaf.tooling</groupId>
+						<artifactId>karaf-maven-plugin</artifactId>
+						<version>${karaf.version}</version>
+						<executions>
+							<execution>
+								<id>generate-features</id>
+								<phase>package</phase>
+								<goals>
+									<goal>features-generate-descriptor</goal>
+								</goals>
+								<configuration>
+									<inputFile>${archon.features}</inputFile>
+									<outputFile>${basedir}/${result.etc.features}</outputFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>populate-repository</id>
+								<phase>package</phase>
+								<goals>
+									<goal>features-add-to-repository</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>file:${basedir}/${result.etc.features}</descriptor>
+									</descriptors>
+									<repository>${result.system}</repository>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>${archon.assembly}</descriptor>
+									</descriptors>
+									<appendAssemblyId>false</appendAssemblyId>
+									<tarLongFileMode>gnu</tarLongFileMode>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>

@@ -1,0 +1,75 @@
+<!--
+
+    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.carrotgarden.karaf</groupId>
+		<artifactId>carrot-karaf-service</artifactId>
+		<!-- project version currently in development -->
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
+
+	<description>basic integration test app</description>
+
+	<groupId>com.carrotgarden.int</groupId>
+	<artifactId>carrot-karaf-service-int-basic-app</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+
+		<serviceUsername>${user.name}</serviceUsername>
+
+		<karafBootupFeature0>standard</karafBootupFeature0>
+		<karafBootupFeature1>management</karafBootupFeature1>
+		<karafBootupFeature2>ssh</karafBootupFeature2>
+		<karafBootupFeature3>config</karafBootupFeature3>
+		<karafBootupFeature4>eventadmin</karafBootupFeature4>
+		<karafBootupFeature5>scr</karafBootupFeature5>
+
+	</properties>
+
+	<dependencies>
+
+		<!-- startup feature -->
+		<dependency>
+			<groupId>com.carrotgarden.log</groupId>
+			<artifactId>carrot-log4j-aws-sns-pax-kar</artifactId>
+			<version>1.0.2-SNAPSHOT</version>
+			<classifier>features</classifier>
+			<type>xml</type>
+		</dependency>
+
+		<!-- auto deploy feature -->
+		<dependency>
+			<groupId>com.carrotgarden.int</groupId>
+			<artifactId>carrot-karaf-service-int-basic-module</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>com.springsource.repository.bundles.release</id>
+			<name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+	</repositories>
+
+</project>

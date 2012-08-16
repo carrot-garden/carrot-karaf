@@ -1,0 +1,211 @@
+<!--
+
+    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.carrotgarden.base</groupId>
+		<artifactId>carrot-archon</artifactId>
+		<version>1.2.1</version>
+	</parent>
+
+	<groupId>com.carrotgarden.karaf</groupId>
+	<artifactId>carrot-karaf-archon</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+
+		<module>carrot-karaf-archon-platform</module>
+		<module>carrot-karaf-archon-resources</module>
+
+	</modules>
+
+	<properties>
+
+		<karaf.groupId>org.apache.karaf</karaf.groupId>
+		<karaf.artifactId>apache-karaf</karaf.artifactId>
+		<karaf.version>3.0.0-SNAPSHOT</karaf.version>
+
+		<!-- original platform resources -->
+		<karaf.distro>target/${karaf.artifactId}-${karaf.version}</karaf.distro>
+
+		<!-- customized platform resources  -->
+		<karaf.custom>src/main/karaf</karaf.custom>
+
+		<!-- archon provided resources  -->
+		<archon>target/archon</archon>
+		<archon.assembly>${archon}/assembly.xml</archon.assembly>
+		<archon.features>${archon}/features.xml</archon.features>
+
+		<!-- final resources for assembly -->
+		<result>target/result</result>
+		<result.bin>${result}/bin</result.bin>
+		<result.etc>${result}/etc</result.etc>
+		<result.lib>${result}/lib</result.lib>
+		<result.system>${result}/system</result.system>
+
+		<result.etc.features>${result.etc}/features.xml</result.etc.features>
+
+	</properties>
+
+	<repositories>
+		<!-- Apache snapshots -->
+		<repository>
+			<id>apache-snapshots</id>
+			<url>http://repository.apache.org/content/groups/snapshots-group</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<!-- ServiceMix repo -->
+		<repository>
+			<id>servicemix</id>
+			<url>http://svn.apache.org/repos/asf/servicemix/m2-repo</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype</id>
+			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>fusesource.snapshots</id>
+			<url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>ops4j.sonatype.snapshots.deploy</id>
+			<url>https://oss.sonatype.org/content/repositories/ops4j-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>zodiac-repository</id>
+			<url>http://zodiac.springsource.com/maven/bundles/release</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>ossrh.sonatype.snapshots.deploy</id>
+			<url>https://oss.sonatype.org/content/groups/public/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencyManagement>
+	</dependencyManagement>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+
+		<pluginManagement>
+
+			<plugins>
+
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.karaf.tooling</groupId>
+										<artifactId>karaf-maven-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>features-generate-descriptor</goal>
+											<goal>features-add-to-repository</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.carrotgarden.maven</groupId>
+										<artifactId>carrot-maven-karaf-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>features-generate-descriptor</goal>
+											<goal>features-add-to-repository</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+
+			</plugins>
+
+		</pluginManagement>
+
+		<plugins>
+		</plugins>
+
+	</build>
+
+</project>
