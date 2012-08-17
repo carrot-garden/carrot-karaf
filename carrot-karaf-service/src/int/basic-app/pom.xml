@@ -1,12 +1,5 @@
-<!--
-
-    Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com>
-
-    All rights reserved. Licensed under the OSI BSD License.
-
-    http://www.opensource.org/licenses/bsd-license.php
-
--->
+<!-- Copyright (C) 2010-2012 Andrei Pozolotin <Andrei.Pozolotin@gmail.com> 
+	All rights reserved. Licensed under the OSI BSD License. http://www.opensource.org/licenses/bsd-license.php -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -15,8 +8,8 @@
 	<parent>
 		<groupId>com.carrotgarden.karaf</groupId>
 		<artifactId>carrot-karaf-service</artifactId>
-		<!-- project version currently in development -->
-		<version>1.0.1-SNAPSHOT</version>
+		<!-- project version will be substituted by the maven-invoker-plugin -->
+		<version>@project.version@</version>
 	</parent>
 
 	<description>basic integration test app</description>
@@ -42,13 +35,13 @@
 	<dependencies>
 
 		<!-- startup feature -->
-		<dependency>
-			<groupId>com.carrotgarden.log</groupId>
-			<artifactId>carrot-log4j-aws-sns-pax-kar</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-			<classifier>features</classifier>
-			<type>xml</type>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.carrotgarden.log</groupId> -->
+		<!-- <artifactId>carrot-log4j-aws-sns-pax-kar</artifactId> -->
+		<!-- <version>1.0.2-SNAPSHOT</version> -->
+		<!-- <classifier>features</classifier> -->
+		<!-- <type>xml</type> -->
+		<!-- </dependency> -->
 
 		<!-- auto deploy feature -->
 		<dependency>
